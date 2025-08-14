@@ -25,14 +25,19 @@ function App() {
       return;
     }
 
+    if (!selectedRole) {
+      setError('Please select a target role before uploading your resume.');
+      return;
+    }
+
     setIsProcessing(true);
     setError(undefined);
 
     try {
       const text = await analyzer.extractTextFromPDF(file);
       const resumeData = analyzer.analyzeResume(text);
-      const score = analyzer.calculateATSScore(resumeData);
-      const analysisResult = analyzer.generateAnalysis(resumeData, score);
+      const score = analyzer.calculateATSScore(resumeData, selectedRole);
+      const analysisResult = analyzer.generateAnalysis(resumeData, score, selectedRole);
       const roleAnalysisResult = analyzer.analyzeRoleMatch(resumeData, selectedRole);
 
       setResumeData(resumeData);
@@ -40,7 +45,8 @@ function App() {
       setAnalysis(analysisResult);
       setRoleAnalysis(roleAnalysisResult);
     } catch (err) {
-      setError('Failed to process resume. Please ensure it\'s a valid PDF file.');
+      console.error('Resume processing error:', err);
+      setError('Failed to process resume. Please ensure it\'s a valid PDF file with selectable text.');
     } finally {
       setIsProcessing(false);
     }

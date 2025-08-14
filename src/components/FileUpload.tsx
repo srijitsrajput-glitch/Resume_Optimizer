@@ -56,15 +56,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, isProcessi
           
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              {isProcessing ? 'Processing Resume...' : 'Upload Your Resume'}
+              {isProcessing ? 'Analyzing Resume Content...' : 'Upload Your Resume'}
             </h3>
             <p className="text-gray-600">
               {isDragActive 
                 ? 'Drop your PDF here...' 
-                : 'Drag & drop your PDF resume or click to browse'
+                : 'Drag & drop your PDF resume or click to browse for analysis'
               }
             </p>
-            <p className="text-sm text-gray-500 mt-1">PDF files only, up to 10MB</p>
+            <p className="text-sm text-gray-500 mt-1">PDF files with selectable text, up to 10MB</p>
           </div>
         </div>
         
@@ -72,7 +72,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, isProcessi
           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 rounded-xl">
             <div className="flex items-center space-x-2">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-              <span className="text-blue-600 font-medium">Analyzing your resume...</span>
+              <span className="text-blue-600 font-medium">Extracting and analyzing resume content...</span>
             </div>
           </div>
         )}
